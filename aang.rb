@@ -43,16 +43,49 @@ when "R"
       field.calculate_excitations_for_strings(input_values[i])
     end
   end
-  puts input_values
-  "Excitations of neurons:"
-
-  neurons.each do |n|
-    puts "Neuron number #{n.number}: #{n.excitation}"
-  end
 when "N"
   puts "Specify neuron number:"
   neuron_number = gets.chomp
 
 else
   puts "Please type either R or N!"
+end
+
+puts "Excitations of neurons for input values: #{input_values}"
+
+neurons.each do |n|
+  puts "Neuron number #{n.number}: #{n.excitation}"
+end
+
+puts "If you want to:"
+puts "try again - press A"
+puts "sort neurons according to their excitation value - S"
+puts "get further sensory fields info - press M"
+puts "exit program - press Q"
+choice = gets.chomp
+
+case choice
+when "A"
+when "S"
+  neurons.sort_by!{ |n| n.excitation }
+  neurons.reverse!
+  puts "Neurons sorted by excitation for input values: #{input_values}"
+  neurons.each do |n|
+    puts "Neuron number #{n.number}: #{n.excitation}"
+  end
+when "M"
+  #print additional sensory field info
+  sensory_fields.each do |f|
+    unless f.attribute_name == "class"
+      puts "Field " + f.attribute_name
+      puts "max value: #{f.max_neuron.represented_value}"
+      puts "min value: #{f.min_neuron.represented_value}"
+      puts "interval width: #{f.interval}"
+      puts "==========="
+    end
+  end
+when "Q"
+  #exit program
+  puts "KTHXBAI!"
+  exit
 end

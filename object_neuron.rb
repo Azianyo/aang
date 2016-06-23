@@ -16,7 +16,7 @@ class ObjectNeuron
   end
 
   def excite
-    @excitation = @excitation + 1
+    @excitation = @receptors.map(&:excitation).inject(0, &:+).round(2)
   end
 
   def calc_activation_time

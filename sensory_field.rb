@@ -1,6 +1,6 @@
 class SensoryField
 
-  attr_accessor :receptors, :attribute_name
+  attr_accessor :receptors, :attribute_name, :max_neuron, :min_neuron, :interval
 
   def initialize attribute_name
     @receptors = []
