@@ -12,9 +12,10 @@ File.foreach("#{File.dirname(__FILE__)}/iris.txt").with_index do |line, line_num
   attributes = line.split(",")
   object_neuron = ObjectNeuron.new(line_num+1, attributes.last)
   neurons << object_neuron
+  attributes.last.strip!
 
   attributes.each_with_index do |elem, i|
-    receptor = ReceptorNeuron.new(elem, i)
+    receptor = ReceptorNeuron.new(elem, traits[i])
     #add receptor to sensory field
     sensory_fields[i].add_receptor_and_sort(receptor)
     #link neuron and receptor
@@ -31,14 +32,15 @@ input_values = []
 case choice
 when "R"
   traits.each_with_index do |t,i|
+    field = sensory_fields[i]
     puts "Please specify #{t} value:"
     input_values << gets.chomp
     if t != "class"
       input_values[i] = input_values[i].to_f
-      sensory_fields[i].calculate_excitations(input_values[i])
+      field.calculate_excitations(input_values[i])
     else
       input_values[i] = input_values[i]
-      sensory_fields[i].calculate_excitations_for_strings(input_values[i])
+      field.calculate_excitations_for_strings(input_values[i])
     end
   end
   puts input_values

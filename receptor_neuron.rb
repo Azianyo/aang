@@ -12,6 +12,7 @@ class ReceptorNeuron
     end
     @trait_name = trait_name
     @obj_neurons = []
+    @excitation = 0
   end
 
   def add_object_neuron neuron
@@ -34,8 +35,8 @@ class ReceptorNeuron
   end
 
   def calc_excitation_for_strings string_input
-    if string_input == @trait_name
-      @excitation = ACTIVATION_THRESHOLD
+    if string_input == @represented_value
+      @excitation = @excitation + 1
       excite_neurons
     end
   end

@@ -2,7 +2,7 @@ class ObjectNeuron
 
   attr_accessor :receptors, :number, :excitation, :class_name
 
-  ACTIVATION_THRESHOLD = 4
+  ACTIVATION_THRESHOLD = 5
 
   def initialize number, class_name
     @receptors = []
@@ -17,5 +17,9 @@ class ObjectNeuron
 
   def excite
     @excitation = @excitation + 1
+  end
+
+  def calc_activation_time
+    @activation_time = 1/@excitation
   end
 end
