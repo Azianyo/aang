@@ -43,9 +43,23 @@ when "R"
       field.calculate_excitations_for_strings(input_values[i])
     end
   end
+  neurons.each(&:calc_activation_time)
 when "N"
   puts "Specify neuron number:"
-  neuron_number = gets.chomp
+  neuron_number = gets.chomp.to_f
+
+  while neuron_number < 1 || neuron_number > neurons.count
+    puts "Neuron not found, specify number between 1 and #{neurons.count}!"
+    neuron_number = gets.chomp.to_f
+  end
+
+  neurons[neuron_number].excite_receptors
+
+  puts "Excitations of neurons:"
+
+  neurons.each do |n|
+    puts "Neuron number #{n.number}: #{n.excitation}"
+  end
 
 else
   puts "Please type either R or N!"
@@ -54,7 +68,7 @@ end
 puts "Excitations of neurons for input values: #{input_values}"
 
 neurons.each do |n|
-  puts "Neuron number #{n.number}: #{n.excitation}"
+  puts "Neuron number #{n.number}: excitation - #{n.excitation}, activation time - #{n.activation_time.round(2)} "
 end
 
 puts "If you want to:"

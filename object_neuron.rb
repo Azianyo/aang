@@ -1,6 +1,6 @@
 class ObjectNeuron
 
-  attr_accessor :receptors, :number, :excitation, :class_name
+  attr_accessor :receptors, :number, :excitation, :class_name, :activation_time
 
   ACTIVATION_THRESHOLD = 5
 
@@ -19,7 +19,11 @@ class ObjectNeuron
     @excitation = @receptors.map(&:excitation).inject(0, &:+).round(2)
   end
 
+  def excite_receptors
+    @receptors.each(&:excite_neurons)
+  end
+
   def calc_activation_time
-    @activation_time = 1/@excitation
+    @activation_time = @excitation == 0 ? @excitation : 1/@excitation
   end
 end
